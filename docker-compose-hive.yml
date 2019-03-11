@@ -64,8 +64,8 @@ services:
     ports:
       - 9001:9001
   hue:
-    image: bde2020/hdfs-filebrowser:3.11
+    image: gethue/hue:latest
     ports:
-      - 8088:8088
-    environment:
-      - NAMENODE_HOST=namenode
+      - 8888:8888
+    volumes:
+      - ./hue.ini:/hue/desktop/conf/hue.ini
