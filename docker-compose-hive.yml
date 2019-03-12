@@ -61,6 +61,9 @@ services:
     command: /opt/hive/bin/hive --service metastore
   hive-metastore-postgresql:
     image: bde2020/hive-metastore-postgresql:2.1.0
+    container_name: postgresql
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
   spark-master:
     image: bde2020/spark-master:2.1.0-hadoop2.8-hive-java8
     container_name: spark-master
