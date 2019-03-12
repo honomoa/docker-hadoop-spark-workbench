@@ -53,12 +53,16 @@ services:
       - "HIVE_SITE_CONF_fs_default_name=hdfs://namenode:8020"
     ports:
       - "10000:10000"
+    depends_on:
+      - hive-metastore
   hive-metastore:
     image: bde2020/hive:2.1.0-postgresql-metastore
     container_name: hive-metastore
     env_file:
       - ./hadoop-hive.env
     command: /opt/hive/bin/hive --service metastore
+    depends_on:
+      - hive-metastore-postgresql
   hive-metastore-postgresql:
     image: bde2020/hive-metastore-postgresql:2.1.0
     container_name: postgresql
@@ -93,5 +97,8 @@ services:
     image: gethue/hue:latest
     ports:
       - 8888:8888
+    depends_on:
+      - namenode
+      - hive-server
     volumes:
       - ./hue.ini:/hue/desktop/conf/hue.ini
